@@ -46,7 +46,10 @@
   ],
   "scripts": {
     "dev": "",
-    "test": ""
+    "test": "",
+    "milestone-02": "http-server src/docs/milestone-02 -p 3000 -c-1 -o -s",
+    "validate-html": "html-validate 'src/**/*.html'",
+    "prettier": "prettier src —write"
   },
   "dependencies": {
 
