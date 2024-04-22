@@ -50,6 +50,11 @@ input[type=checkbox] {
     position: relative; 
   }
 
+  .title{
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
   .translator-container{
     display: flex;
     flex-direction: row;
@@ -58,7 +63,17 @@ input[type=checkbox] {
     /* height: 100vh; */
   }
 
-  .title{
-    margin-bottom: 20px;
-    text-align: center;
+  #input-textbox{
+    margin-right: 20px;
+    height: 100px;
+    width: 300px;
   }
+
+  #output-textbox{
+    height: 100px;
+    width: 300px;
+  }
+
+  
+
+  
