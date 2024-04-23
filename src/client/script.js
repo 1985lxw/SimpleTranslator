@@ -1,6 +1,6 @@
 const toggleSwitch = document.getElementById("switch");
 const title = document.getElementById("title");
-const icon = document.getElementById("trans");
+const icon = document.getElementById("bx-transfer");
 const inputTextbox = document.getElementById("input-textbox");
 const outputTextbox = document.getElementById("output-textbox");
 

@@ -52,6 +52,7 @@ input[type=checkbox] {
     height: 100vh;
     margin: 0; 
     position: relative; 
+    font-family: Sofia;
   }
 
   .title{
@@ -62,24 +63,75 @@ input[type=checkbox] {
   }
 
   .translator-container{
-    display: flex;
-    flex-direction: row;
+    display: flex ;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+    box-sizing: border-box;
+    width: 70%;
+    margin: 0 auto;
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+    border-radius: 5px;
+    overflow: hidden;
+    border: 1px solid lightgray;
+    background-color: #fff;
     /* height: 100vh; */
   }
 
-  #input-textbox{
-    margin-right: 20px;
-    height: 100px;
-    width: 300px;
+  .translator-container .language-choices {
+    display: flex;
+    width: 100%;
+    height: 50px;
+    justify-content: space-between;
+    align-items: center;
+    list-style: none;
+    border-bottom: 1px solid lightgray;
+    padding: 10px 20px;
+    margin-top: 0;
+    margin-bottom: 20px;
   }
 
-  #output-textbox{
-    height: 100px;
-    width: 300px;
+  .translator-container .language-choices li select {
+    outline: none;
+    border-style: none;
+    padding: 5px 5px;
+    font-size: 17px;
+    font-family: Sofia;
+    font-weight: 500;
+    color: gray;
   }
 
+  .bx-transfer {
+    font-size: 22px;
+    color: lightgrey;
+    cursor: pointer;
+  }
+
+  .input-output-container {
+    display: flex;
+    width: 100%;
+  }
+  
+  .translator-input,
+  .translator-output {
+    flex: 1;
+    margin-bottom: 20px;
+  }
+  
+  .input-textbox textarea,
+  .output-textbox textarea {
+    width: 100%;
+    border-style: none;
+    outline: none;
+    resize: none;
+    padding: 10px 20px;
+    font-size: 20px;
+    color: gray;
+  }
+  
+  .translator-input {
+    margin-right: 10px; /* Add some spacing between the textareas */
+  }
   
 
   
