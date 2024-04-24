@@ -11,3 +11,8 @@ toggleSwitch.addEventListener('click', () => {
 inputTextbox.addEventListener("input", ()=>{
   outputTextbox.value = inputTextbox.value;
 })
+
+function search_bar (){
+  let input = document.getElementById('searchbar').value.toLowerCase();
+  console.log(input);
+}
