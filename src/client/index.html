@@ -1,71 +1,83 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <title>Milestone_2</title>
-  <link rel="stylesheet" href="styles.css" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia">
-  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'> 
-  <script type="module" src="script.js" defer></script>
-  <style> 
-    body {font-family: "Sofia", sans-serif;} 
-  </style>
-</head>
-<body>
-  <input type="checkbox" id="switch" />
-  <label for="switch">Toggle</label>
-  <div id="title" class="title">SimpleTranslator</div>
-  <div class="translator-container">
-    <ul class="language-choices">
-      <li>
-        <select>
-          <option value="en">English</option>
-          <option value="ch">Chinese</option>
-        </select>
-      </li>
-      <li class="bx bx-transfer"></li>
-      <li>
-        <select>
-          <option value="en">English</option>
-          <option value="ch">Chinese</option>
-        </select>
-      </li>
-    </ul>
-    <div class="input-output-container">
-      <div class="translator-input">
-        <textarea
-          id="input-textbox"
-          placeholder="Type text to translate"
-        ></textarea>
+  <head>
+    <title>Milestone_2</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Sofia"
+    />
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <script type="module" src="script.js" defer></script>
+    <style>
+      body {
+        font-family: "Sofia", sans-serif;
+      }
+    </style>
+  </head>
+  <body>
+    <input type="checkbox" id="switch" />
+    <label for="switch">Toggle</label>
+    <div id="title" class="title">SimpleTranslator</div>
+    <div class="translator-container">
+      <ul class="language-choices">
+        <li>
+          <select>
+            <option value="en">English</option>
+            <option value="ch">Chinese</option>
+          </select>
+        </li>
+        <li class="bx bx-transfer"></li>
+        <li>
+          <select>
+            <option value="en">English</option>
+            <option value="ch">Chinese</option>
+          </select>
+        </li>
+      </ul>
+      <div class="input-output-container">
+        <div class="translator-input">
+          <textarea
+            id="input-textbox"
+            placeholder="Type text to translate"
+          ></textarea>
+        </div>
+        <div class="translator-output">
+          <textarea
+            id="output-textbox"
+            placeholder="Translation will appear here"
+            readonly
+          ></textarea>
+        </div>
       </div>
-      <div class="translator-output">
-        <textarea
-          id="output-textbox"
-          placeholder="Translation will appear here"
-          readonly
-        ></textarea>
+    </div>
+  </body>
+  <body>
+    <div class="container2">
+      <input
+        id="searchbar"
+        type="text"
+        name="search"
+        placeholder="Search Words"
+        onkeyup="search_bar()"
+      />
+    </div>
+    <div class="history-box-container">
+      <div class="history-box">
+        <h2>History 1</h2>
+        <p>This is the content of History 1.</p>
+      </div>
+      <div class="history-box">
+        <h2>History 2</h2>
+        <p>This is the content of History 2.</p>
+      </div>
+      <div class="history-box">
+        <h2>History 3</h2>
+        <p>This is the content of History 3.</p>
       </div>
     </div>
-  </div>
-</body>
-<body>
-  <div class="container2">
-    <input id="searchbar"
-            type="text" name="search"
-            placeholder="Search Words" onkeyup="search_bar()">
-  </div>
-  <div class="history-box-container">
-    <div class="history-box">
-      <h2>History 1</h2>
-      <p>This is the content of History 1.</p>
-    </div>
-    <div class="history-box">
-      <h2>History 2</h2>
-      <p>This is the content of History 2.</p>
-    </div>
-    <div class="history-box">
-      <h2>History 3</h2>
-      <p>This is the content of History 3.</p>
-    </div>
-  </div>
-</body>
+  </body>
 </html>

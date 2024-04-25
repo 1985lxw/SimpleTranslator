@@ -3,16 +3,18 @@ const title = document.getElementById("title");
 const inputTextbox = document.getElementById("input-textbox");
 const outputTextbox = document.getElementById("output-textbox");
 
+// Event listener for the toggle switch to change background color and title color
 toggleSwitch.addEventListener('click', () => {
   document.body.style.backgroundColor = document.body.style.backgroundColor === 'pink' ? 'black' : 'pink';
   title.style.color = document.body.style.backgroundColor === 'black' ? 'pink' : 'black';
 });
 
+// Event listener for input textbox to update output textbox
 inputTextbox.addEventListener("input", ()=>{
   outputTextbox.value = inputTextbox.value;
 })
 
-//Search bar
+// Function to handle search bar functionality
 function search_bar (){
   let input = document.getElementById('searchbar').value.toLowerCase();
   console.log(input);
@@ -28,6 +30,7 @@ const historyItems = [
 function createHistoryBoxes() {
   const historyContainer = document.getElementById("historyContainer");
 
+  // Iterate through each history item and create a history box
   historyItems.forEach(item => {
     const historyBox = document.createElement("div");
     historyBox.classList.add("history-box");
@@ -45,4 +48,5 @@ function createHistoryBoxes() {
   });
 }
 
+// Call the function to create history boxes when the page loads
 createHistoryBoxes();
