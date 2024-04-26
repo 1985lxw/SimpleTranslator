@@ -98,12 +98,12 @@ input[type=checkbox] {
     font-size: 17px;
     font-family: Sofia;
     font-weight: 500;
-    color: gray;
+    color: black;
   }
 
   .bx-transfer {
     font-size: 22px;
-    color: lightgrey;
+    color: black;
     cursor: pointer;
   }
 
