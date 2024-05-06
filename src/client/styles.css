@@ -8,6 +8,21 @@ input[type=checkbox] {
     background-color: black;
   }
 
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+  }
+
+  li {
+    display: inline-block;
+    margin-right: 20px;
+  }
+
+  a.li:link {
+    color: pink;
+  }
+
   label {
     content: '🎀';
     cursor: pointer;
