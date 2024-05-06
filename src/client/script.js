@@ -7,6 +7,7 @@ const outputTextbox = document.getElementById("output-textbox");
 toggleSwitch.addEventListener('click', () => {
   document.body.style.backgroundColor = document.body.style.backgroundColor === 'pink' ? 'black' : 'pink';
   title.style.color = document.body.style.backgroundColor === 'black' ? 'pink' : 'black';
+  
 });
 
 // Event listener for input textbox to update output textbox
