@@ -61,7 +61,7 @@ input[type=checkbox] {
     left: 5px;
     width: 20px; 
     height: 20px; 
-    background: black;
+    background: white;
     border-radius: 20px; 
     transition: 0.3s;
   }
