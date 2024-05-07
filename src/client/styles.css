@@ -19,9 +19,29 @@ input[type=checkbox] {
     margin-right: 20px;
   }
 
-  a.li:link {
+  a.game_id {
+    margin-left: 10px;
+  }
+
+  a.game_id, a.history_id {
+    text-decoration: none;
+    color: pink;
+    font-size: 18px;
+  }
+  a.game_id:link, a.history_id:link {
+    text-decoration: none;
     color: pink;
   }
+  a.game_id:visited, a.history_id:visited {
+    text-decoration: none;
+    color: pink;
+  }
+  a.game_id:hover, a.history_id:hover {
+    text-decoration: underline;
+    color: rgb(218, 25, 225);
+  }
+
+
 
   label {
     content: '🎀';

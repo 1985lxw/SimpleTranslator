@@ -2,12 +2,15 @@ const toggleSwitch = document.getElementById("switch");
 const title = document.getElementById("title");
 const inputTextbox = document.getElementById("input-textbox");
 const outputTextbox = document.getElementById("output-textbox");
+const gameColor = document.getElementsByClassName("game_id");
+const historyColor = document.getElementsByClassName("history_id");
 
 // Event listener for the toggle switch to change background color and title color
 toggleSwitch.addEventListener('click', () => {
   document.body.style.backgroundColor = document.body.style.backgroundColor === 'pink' ? 'black' : 'pink';
   title.style.color = document.body.style.backgroundColor === 'black' ? 'pink' : 'black';
-  
+  gameColor.color = document.body.style.backgroundColor === 'black' ? 'pink' : 'black';
+  historyColor.style.color = document.body.style.backgroundColor === 'black' ? 'pink' : 'black';
 });
 
 // Event listener for input textbox to update output textbox
