@@ -14,6 +14,6 @@
     transition: background-color 0.3s;
   }
   
-  .box.flipped{
-    background-color: lightblue;
+  .flipped{
+    background-color: lightBlue;
   }
