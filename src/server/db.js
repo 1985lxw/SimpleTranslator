@@ -20,7 +20,12 @@ const db = new PouchDB("translation-history");
  */
 
 export async function saveTranslation(id, input, out) {
-    await db.put({ _id: id, input, out });
+    try {
+        await db.put({ _id: id, input, out });
+    }
+    catch {
+        throw new Error(`Error storing history of input ${input}: ${error}`)
+    }
 }
 
 /**
@@ -30,7 +35,18 @@ export async function saveTranslation(id, input, out) {
  * @throws Error - if there's a problem accessing the database
  */
 export async function clearTranslationHistory() {
-    db.remove()
+    try {
+        const allDocs = await db.allDocs();
+        const forRemoval = docs.rows.map(row => ({
+            _id: row.id,
+            _rev: row.value.rev,
+            _deleted: true
+        }));
+        await db.bulkDocs(docsToRemove);
+    }
+    catch {
+        throw new Error(`Error deleting documents from database: ${error}`);
+    }
 }
 
 /**
@@ -41,3 +57,11 @@ export async function clearTranslationHistory() {
  * @returns Promise<> - resolves to translation history if any
  * @throws Error - if there's a problem accessing the database
  */
+export async function loadHistory(n) {
+    try {
+        const result = await db.allDocs({ include_docs: true, descending: true, limit: n });
+        return result.rows.map(row => row.doc);
+    } catch (error) {
+        throw new Error(`Error loading documents from database: ${error}`);
+    }
+}
