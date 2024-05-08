@@ -6,7 +6,6 @@ import logger from "morgan";
 /**
  * Connects CRUD operations to the database for storage and retrieval
  */
-
 const headerFields = { "Content-Type": "text/html" };
 
 /**
@@ -15,10 +14,14 @@ const headerFields = { "Content-Type": "text/html" };
  * 
  * TODO: add a check for past translation, if exists update id number to match the order
  * 
+ * CRUD: create
+ * 
+ * @async
  * @param {*} response 
- * @param {*} name 
+ * @param {*} input
+ * @param {*} output
  */
-async function storeTranslation(response, input, output) {
+async function storeTranslation(response, input, output, lang_in, lang_out) {
     if (input === undefined) {
       response.writeHead(400, headerFields);
       response.write("<h1>Translation input required</h1>");
@@ -26,7 +29,7 @@ async function storeTranslation(response, input, output) {
     } 
     else {
       try {
-        await db.saveTranslation(0, input, output);
+        await db.saveTranslation(input, output, lang_in, lang_out);
         response.writeHead(200, headerFields);
         response.write(`<h1>Translation of ${input} successfully stored</h1>`);
         response.end();
@@ -40,8 +43,48 @@ async function storeTranslation(response, input, output) {
     }
 }
 
+/**
+ * Asynchronously reads the history of the past n translations. If n are unavailable, only available history is returns
+ * and the user is notified.
+ * 
+ * CRUD: read
+ * 
+ * @async
+ * @param {*} response 
+ * @param {*} n - the number of documents we want to access
+ */
+async function readHistory(response, n) {
+    try {
+      const hist = await db.loadHistory(n);
+      response.writeHead(200, headerFields);
+      response.write(`<h1>History successfully read</h1>`);
+
+      if (hist.length < n) {
+        response.write(`<p>Only ${hist.length} documents are available however`)
+      }
+      response.end();
+    } 
+    catch (err) {
+      response.writeHead(404, headerFields);
+      response.write(`<h1>History unavailable</h1>`);
+      response.end();
+    }
+}
+
+/**
+ * Asynchronously updates the history of phrases into single words for matching tile game
+ * 
+ * CRUD: update
+ * 
+ * 
+ */
+//TODO
 
 
+/**
+ * Asynchronously stores the current translation into history. If the same translation exists, the id number is updated to indicate
+ * that the translation was accessed again currently
+ */
 
 const app = express();
 const port = 3260;
