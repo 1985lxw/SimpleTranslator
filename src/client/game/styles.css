@@ -11,6 +11,7 @@
     height: 100%;
     margin-bottom: 15px;
     background-color: pink;
+    transition: background-color 0.3s;
   }
   
   .box.flipped{
