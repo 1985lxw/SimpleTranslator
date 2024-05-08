@@ -72,6 +72,27 @@ async function readHistory(response, n) {
 }
 
 /**
+ * Clear All History: Clears the database and resets history
+ * 
+ * CRUD: delete
+ */
+async function clearAllHistory(response) {
+    try {
+        await db.clearTranslationHistory();
+        response.writeHead(200, headerFields);
+        response.write(`<h1>All History Successfully Cleared</h1>`);
+        response.end()
+    }
+    catch(err) {
+        response.writeHead(404, headerFields);
+        response.write(`<h1>Error deleting all history</h1>`);
+        response.end();
+    }
+}
+
+
+
+/**
  * Asynchronously updates the history of phrases into single words for matching tile game
  * 
  * CRUD: update

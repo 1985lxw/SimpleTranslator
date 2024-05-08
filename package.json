@@ -1,5 +1,5 @@
 {
-  "name": "",
+  "name": "SimpleTranslator",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -18,8 +18,7 @@
   "bugs": "",
   "keywords": [],
   "author": {
-    "name": "SimpleTranslator",
-    "email": "",
+    "name": "several",
     "url": "https://github.com/1985lxw/SimpleTranslator.git"
   },
   "contributors": [
@@ -46,13 +45,24 @@
   ],
   "scripts": {
     "dev": "",
-    "test": "",
+    "test": "jest",
     "start": "http-server src/client -p 3000 -c-1 -o -s",
     "validate-html": "html-validate 'src/**/*.html'",
     "prettier": "prettier src —write"
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.24.5",
+    "babel-jest": "^29.7.0",
     "html-validate": "^8.18.2",
-    "http-server": "^14.1.1"
+    "http-server": "^14.1.1",
+    "jest": "^29.7.0"
+  },
+  "dependencies": {
+    "ts-jest": "^29.1.2"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.jsx?$": "babel-jest"
+    }
   }
 }
