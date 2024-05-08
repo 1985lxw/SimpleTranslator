@@ -156,7 +156,6 @@ input[type=checkbox] {
     height: 250px;
     border-style: none;
     outline: none;
-    resize: none;
     padding: 10px 20px;
     font-size: 20px;
     color: gray;
