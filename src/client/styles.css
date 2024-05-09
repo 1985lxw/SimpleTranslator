@@ -168,11 +168,15 @@ input[type=checkbox] {
     border-right: 1px solid #c7c7c7;
   }
 
-.container2 {
+  .container2 {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 20px;
+    margin: 20px auto; /* Vertical margin 20px, horizontal auto centers it */
+    width: 80%; /* Adjust width to prevent overflow */
+    max-width: 1200px; /* Optional: max width limit */
+    padding: 20px; /* Optional padding */
+    box-sizing: border-box; /* Include padding and border in the width and height */
 }
  
   .history-box-container {
