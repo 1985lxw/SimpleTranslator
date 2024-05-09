@@ -37,6 +37,9 @@
           <select>
             <option value="en">English</option>
             <option value="ch">Chinese</option>
+            <option value="kr">Korean</option>
+            <option value="rs">Russian</option>
+            <option value="fr">French</option>
           </select>
         </li>
         <li class="bx bx-transfer"></li>
@@ -44,6 +47,9 @@
           <select>
             <option value="en">English</option>
             <option value="ch">Chinese</option>
+            <option value="kr">Korean</option>
+            <option value="rs">Russian</option>
+            <option value="fr">French</option>
           </select>
         </li>
       </ul>
@@ -67,13 +73,21 @@
     </div>
   </body>
   <body>
-    <div class="container2">
-      <input
-        id="searchbar"
-        type="text"
-        name="search"
-        placeholder="Search Words"
-        onkeyup="search_bar()"
+    <div class="form-container">
+              <form class="form">
+                  <input id="search" type="text" class="input" placeholder="search..."/>
+                  <button id="clear" class="clear-results">clear</button>
+              </form>
+
+    </div>
+    <div class="results-container">
+       <ul class="results-list" id="list">
+
+       </ul>
+    </div>
+
+       <script src="search_bar.js"></script>
+    </body>
       />
 =======
 <head>
