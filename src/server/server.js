@@ -100,7 +100,25 @@ async function clearAllHistory(response) {
  * 
  */
 //TODO
+async function updateTranslationHistory(response) {
+  try {
+      // Step 1: Retrieve Existing Translations
+      const translations = await db.loadHistory(); // Assuming this function retrieves all translations
 
+      // Step 2: Transform Translations
+      const transformedTranslations = translations.map(translation => {
+        //TODO
+    });
+    await db.updateTranslationHistory(transformedTranslations);
+    response.writeHead(200, headerFields);
+    response.write(`<h1>Translation History Successfully Updated</h1>`);
+    response.end();
+  } catch(err) {
+    response.writeHead(500, headerFields);
+    response.write(`<h1>Error updating translation history</h1>`);
+    response.end();
+  }
+}
 
 /**
  * Asynchronously stores the current translation into history. If the same translation exists, the id number is updated to indicate
