@@ -19,3 +19,7 @@
   .flipped{
     background-color: lightBlue;
   }
+
+  #header{
+    margin-left: 20px;
+  }
