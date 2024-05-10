@@ -75,7 +75,9 @@ function createHistoryBoxes() {
 }
 
 // Call the function to create history boxes when the page loads
-createHistoryBoxes();
+
+//commented out to avoid error
+// createHistoryBoxes();
 
 
 // Integrating back-end

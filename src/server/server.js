@@ -1,13 +1,12 @@
 import * as db from "./db.js";
 import express, { response } from "express";
-import logger from "morgan";
 
 import { readFile } from "fs/promises";
 import * as http from "http";
 import * as url from "url";
 import path from "path";
 
-import cors from "cors";
+
 
 /**
  * Connects CRUD operations to the database for storage and retrieval
@@ -167,18 +166,12 @@ async function translatorServer(request, response) {
     await updateTranslationHistory(response);
   }
   else {
-    response.writeHead(404, headerFields);
+    response.writeHead(401, headerFields);
     response.write("<h1>Invalid request</h1>");
     response.end();
   }
 }
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Methods", "POST, GET, PUT, DELETE");
-  next();
-});
 
-const app = express();
-app.use(cors());
 
 http.createServer(translatorServer).listen(5501, () => {
   console.log("Server started on port 5501");
