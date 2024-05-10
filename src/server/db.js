@@ -1,6 +1,8 @@
 import PouchDB from "pouchdb";
 
+// this is for history
 const db = new PouchDB("translation-history");
+// this is for the game
 const db_words = new PouchDB("translation-words");
 
 /**
@@ -19,9 +21,10 @@ const db_words = new PouchDB("translation-words");
  * Determines the next free id number for storage
  * 
  * @async
+ * @param {boolean} words - whether we're finding the id of words database or translation
  * @returns {number} id - next available id in database
  */
-async function nextID() {
+async function nextID(words = false) {
     // retrieves most recent document
     const lastTranslation = await db.allDocs({
         include_docs: true,
@@ -63,7 +66,7 @@ export async function saveTranslation(input, out, lang_in, lang_out) {
         //stores
         await db.put({ _id: id, input, out, lang_in, lang_out });
     }
-    catch {
+    catch (error){
         throw new Error(`Error storing history of input ${input}: ${error}`)
     }
 }
@@ -77,11 +80,12 @@ export async function saveTranslation(input, out, lang_in, lang_out) {
  * @throws Error - if the ID is not found
  */
 async function deleteTranslation(id) {
-    await db.get(id).then(doc => {
-        db.remove(doc);
-    }).catch(err => {
+    try {
+        const doc = await db.get(id);
+        await db.remove(doc);
+    } catch (err) {
         console.log(`Error removing document id=${id}: ${err}`)
-    })
+    }
 }
 
 /**
@@ -162,3 +166,66 @@ export async function loadHistory(n) {
     }
 }
 
+/** NOT IMPLEMENTED
+ * Splits up phrases from translation-history and updates translation-words
+ * 
+ * @async
+ * @param {string} input - the translation input
+ * @param {string} lang_in - the input language
+ * @throws Error - if there's a problem accessing the database
+ */
+export async function updateWords(input, lang_in) {
+    try {
+        const query = {
+            "input": input,
+            "lang_in": lang_in
+        };
+
+        const result = await db.find({ selector: query });
+
+        if (result.docs.length > 0) {
+            //if found
+            const punctuation = /[!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]/;
+
+            const in_words = result.docs[0].input.split(" ");
+            in_words = in_words.map((word) => {
+                return word.replace(punctuation, "");
+            });
+            
+            const out_words = result.docs[0].out.split(" ");
+            out_words = out_words.map((word) => {
+                return word.replace(punctuation, "");
+            });
+            //error here, what if the words are not the same length?
+            const id = nextID(true);
+            await db_words.put({ _id: id, words });
+        } 
+        else {
+            // if not found
+            throw new Error('Translation not found in history');
+        }
+    }
+    catch (error) {
+        throw new Error(`Error updating translation words: ${error}`);
+    }
+}
+
+/**
+ * Clears words database to reset matching game
+ * 
+ * @async
+ * @throws Error - if there's a problem deleting database
+ */
+export async function clearWords() {
+    try {
+        const allDocs = await db_words.allDocs();
+        const forRemoval = allDocs.rows.map(row => ({
+            _id: row.id,
+            _rev: row.value.rev,
+            _deleted: true
+        }));
+        await db.bulkDocs(forRemoval);
+    } catch (error) {
+        throw new Error(`Error deleting words database: ${error}`);
+    }
+}

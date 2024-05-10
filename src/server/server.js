@@ -2,6 +2,12 @@ import * as db from "./db.js";
 import express, { response } from "express";
 import logger from "morgan";
 
+import { readFile } from "fs/promises";
+import * as http from "http";
+import * as url from "url";
+import path from "path";
+
+import cors from "cors";
 
 /**
  * Connects CRUD operations to the database for storage and retrieval
@@ -125,8 +131,55 @@ async function updateTranslationHistory(response) {
  * that the translation was accessed again currently
  */
 
+//NOT IMPLEMENTED
+
+/**
+ * Handles the requests to access the databases
+ */
+async function translatorServer(request, response) {
+  // Parse the URL to get the pathname and the query parameters.
+  const parsedUrl = url.parse(request.url, true);
+  console.log("Parsed URL:", parsedUrl);
+  const pathname = parsedUrl.pathname;
+  const query = parsedUrl.query;
+  console.log("Query parameters:", query);
+
+  // HTTP method.
+  const method = request.method;
+
+  if (method === "POST" && pathname === "/store") {
+    console.log("POST /store");
+    const {input, output, lang_in, lang_out} = query;
+    await storeTranslation(response, input, output, lang_in, lang_out);
+  }
+  else if (method === "GET" && pathname === "/read") {
+    console.log("GET /read");
+    const {n} = query;
+    await readHistory(response, n);
+  }
+  else if (method === "DELETE" && pathname === "/clear") {
+    console.log("DELETE /clear");
+    await clearAllHistory(response);
+  }
+  else if (method === "PUT" && pathname === "/update") {
+    console.log("PUT /update");
+    //not implemented
+    await updateTranslationHistory(response);
+  }
+  else {
+    response.writeHead(404, headerFields);
+    response.write("<h1>Invalid request</h1>");
+    response.end();
+  }
+}
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Methods", "POST, GET, PUT, DELETE");
+  next();
+});
+
 const app = express();
-const port = 3260;
-app.use(logger("dev"));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(cors());
+
+http.createServer(translatorServer).listen(5501, () => {
+  console.log("Server started on port 5501");
+});

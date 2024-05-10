@@ -1,3 +1,5 @@
+
+
 const toggleSwitch = document.getElementById("switch");
 const title = document.getElementById("title");
 const inputTextbox = document.getElementById("input-textbox");
@@ -74,3 +76,11 @@ function createHistoryBoxes() {
 
 // Call the function to create history boxes when the page loads
 createHistoryBoxes();
+
+
+// Integrating back-end
+// async function storeTranslationHistory() {
+//   try {
+//     const res = await fetch(url, {)
+//   }
+// }
