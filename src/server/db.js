@@ -1,4 +1,8 @@
 import PouchDB from "pouchdb";
+//quicker querying
+import pouchdbFind from "pouchdb-find";
+
+PouchDB.plugin(pouchdbFind);
 
 // this is for history
 const db = new PouchDB("translation-history");
@@ -35,10 +39,10 @@ async function nextID(words = false) {
     // Determines the next id number, deals with no translation issue
     let id = 0;
     if (lastTranslation.rows.length > 0) {
-        id = lastTranslation.rows[0].doc._id + 1;
+        id = int(lastTranslation.rows[0].doc._id) + 1;
     }
 
-    return id
+    return id.toString()
 }
 
 /**
@@ -55,9 +59,9 @@ async function nextID(words = false) {
 export async function saveTranslation(input, out, lang_in, lang_out) {
     try {
         //if translation already exists, we delete it
-        const id_curr = findTranslation(input, lang_in);
+        const id_curr = await findTranslation(input, lang_in);
         if (id_curr !== -1) {
-            deleteTranslation(id_curr);
+            await deleteTranslation(id_curr);
         }
         
         //gets next available id

@@ -41,7 +41,7 @@ async function storeTranslation(response, input, output, lang_in, lang_out) {
       } 
       catch (err) {
         response.writeHead(500, headerFields);
-        response.write("<h1>Internal Server Error</h1>");
+        response.write(`<h1>Internal Server Error: ${err}</h1>`);
         response.write("<p>Unable to store translation</p>");
         response.end();
       }
@@ -63,6 +63,7 @@ async function readHistory(response, n) {
       const hist = await db.loadHistory(n);
       response.writeHead(200, headerFields);
       response.write(`<h1>History successfully read</h1>`);
+      response.write(JSON.stringify(hist));
 
       if (hist.length < n) {
         response.write(`<p>Only ${hist.length} documents are available however`)
