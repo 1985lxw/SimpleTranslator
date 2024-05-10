@@ -1,4 +1,4 @@
-import * as back from '../server/server.js';
+// import * as back from '../server/server.js';
 
 const boxes = document.querySelectorAll('.box');
 
