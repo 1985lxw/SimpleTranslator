@@ -46,33 +46,6 @@ function search_bar (){
   console.log(input);
 }
 
-//History box
-const historyItems = [
-  { title: "History 1", content: "This is the content of History 1." },
-  { title: "History 2", content: "This is the content of History 2." },
-  { title: "History 3", content: "This is the content of History 3." }
-];
-
-function createHistoryBoxes() {
-  const historyContainer = document.getElementById("historyContainer");
-
-  // Iterate through each history item and create a history box
-  historyItems.forEach(item => {
-    const historyBox = document.createElement("div");
-    historyBox.classList.add("history-box");
-
-    const title = document.createElement("h2");
-    title.textContent = item.title;
-
-    const content = document.createElement("p");
-    content.textContent = item.content;
-
-    historyBox.appendChild(title);
-    historyBox.appendChild(content);
-
-    historyContainer.appendChild(historyBox);
-  });
-}
 
 // Call the function to create history boxes when the page loads
 
