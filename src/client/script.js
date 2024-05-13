@@ -7,6 +7,7 @@ const outputTextbox = document.getElementById("output-textbox");
 const gameColor = document.querySelector(".game_id");
 const historyColor = document.querySelector(".history_id");
 const translate_btn = document.querySelector(".translate-button");
+const clear_btn = document.querySelector(".clear");
 
 // Event listener for the toggle switch to change background color and title color
 toggleSwitch.addEventListener('click', () => {
@@ -14,6 +15,10 @@ toggleSwitch.addEventListener('click', () => {
   title.style.color = document.body.style.backgroundColor === 'black' ? 'pink' : 'black';
   gameColor.style.color = document.body.style.backgroundColor === 'black' ? 'pink' : 'black';
   historyColor.style.color = document.body.style.backgroundColor === 'black' ? 'pink' : 'black';
+  translate_btn.style.backgroundColor = document.body.style.backgroundColor === 'black' ? 'pink' : 'black';
+  translate_btn.style.color = document.body.style.backgroundColor === 'black' ? 'black' : 'pink';
+  clear_btn.style.backgroundColor = document.body.style.backgroundColor === 'black' ? 'pink' : 'black';
+  clear_btn.style.color = document.body.style.backgroundColor === 'black' ? 'black' : 'pink';
 });
 
 gameColor.addEventListener('mouseenter', () => {
