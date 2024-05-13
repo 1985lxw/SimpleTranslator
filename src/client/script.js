@@ -8,6 +8,7 @@ const gameColor = document.querySelector(".game_id");
 const historyColor = document.querySelector(".history_id");
 const translate_btn = document.querySelector(".translate-button");
 const clear_btn = document.querySelector(".clear");
+const bx_transfer = document.querySelector(".bx-transfer");
 
 // Event listener for the toggle switch to change background color and title color
 toggleSwitch.addEventListener('click', () => {
@@ -47,6 +48,14 @@ function search_bar (){
   let input = document.getElementById('searchbar').value.toLowerCase();
   console.log(input);
 }
+
+bx_transfer.addEventListener("click", ()=>{
+  const translateTo = document.querySelector(".translate-to").value;
+  const translateFrom = document.querySelector(".translate-from").value;
+  document.querySelector(".translate-from").value = translateTo;
+  document.querySelector(".translate-to").value = translateFrom;
+})
+
 
 translate_btn.addEventListener("click", ()=>{
   let text = inputTextbox.value;
