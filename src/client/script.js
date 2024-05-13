@@ -36,30 +36,12 @@ historyColor.addEventListener('mouseleave', () => {
   historyColor.style.textDecoration = 'none';
 });
 
-// // Event listener for input textbox to update output textbox
-// inputTextbox.addEventListener("input", ()=>{
-//   outputTextbox.value = inputTextbox.value;
-// })
 
 // Function to handle search bar functionality
 function search_bar (){
   let input = document.getElementById('searchbar').value.toLowerCase();
   console.log(input);
 }
-
-
-// Call the function to create history boxes when the page loads
-
-//commented out to avoid error
-// createHistoryBoxes();
-
-
-// Integrating back-end
-// async function storeTranslationHistory() {
-//   try {
-//     const res = await fetch(url, {)
-//   }
-// }
 
 translate_btn.addEventListener("click", ()=>{
   let text = inputTextbox.value;
@@ -69,5 +51,13 @@ translate_btn.addEventListener("click", ()=>{
   fetch(apiURL).then(res=>res.json()).then(data=>{
     console.log(data);
     outputTextbox.value = data.responseData.translatedText;
+    let history = JSON.parse(localStorage.getItem("history")) || [];
+    history.push({
+      text: text,
+      translateFrom: translateFrom,
+      translateTo: translateTo,
+      translatedText: data.responseData.translatedText
+    })
+    localStorage.setItem("history", JSON.stringify(history));
   })
 })
