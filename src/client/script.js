@@ -1,5 +1,3 @@
-
-
 const toggleSwitch = document.getElementById("switch");
 const title = document.getElementById("title");
 const inputTextbox = document.getElementById("input-textbox");
@@ -49,6 +47,7 @@ function search_bar (){
   console.log(input);
 }
 
+// Switch between languages
 bx_transfer.addEventListener("click", ()=>{
   const translateTo = document.querySelector(".translate-to").value;
   const translateFrom = document.querySelector(".translate-from").value;
@@ -56,7 +55,7 @@ bx_transfer.addEventListener("click", ()=>{
   document.querySelector(".translate-to").value = translateFrom;
 })
 
-
+// translation API
 translate_btn.addEventListener("click", ()=>{
   let text = inputTextbox.value;
   let translateFrom = document.querySelector(".translate-from").value;
