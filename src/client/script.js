@@ -55,7 +55,7 @@ bx_transfer.addEventListener("click", ()=>{
   document.querySelector(".translate-to").value = translateFrom;
 })
 
-// translation API
+// API for translation
 translate_btn.addEventListener("click", ()=>{
   let text = inputTextbox.value;
   let translateFrom = document.querySelector(".translate-from").value;
