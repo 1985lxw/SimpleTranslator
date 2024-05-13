@@ -6,6 +6,7 @@ const inputTextbox = document.getElementById("input-textbox");
 const outputTextbox = document.getElementById("output-textbox");
 const gameColor = document.querySelector(".game_id");
 const historyColor = document.querySelector(".history_id");
+const translate_btn = document.querySelector(".translate-button");
 
 // Event listener for the toggle switch to change background color and title color
 toggleSwitch.addEventListener('click', () => {
@@ -35,10 +36,10 @@ historyColor.addEventListener('mouseleave', () => {
   historyColor.style.textDecoration = 'none';
 });
 
-// Event listener for input textbox to update output textbox
-inputTextbox.addEventListener("input", ()=>{
-  outputTextbox.value = inputTextbox.value;
-})
+// // Event listener for input textbox to update output textbox
+// inputTextbox.addEventListener("input", ()=>{
+//   outputTextbox.value = inputTextbox.value;
+// })
 
 // Function to handle search bar functionality
 function search_bar (){
@@ -59,3 +60,14 @@ function search_bar (){
 //     const res = await fetch(url, {)
 //   }
 // }
+
+translate_btn.addEventListener("click", ()=>{
+  let text = inputTextbox.value;
+  let translateFrom = document.querySelector(".translate-from").value;
+  let translateTo = document.querySelector(".translate-to").value;
+  let apiURL = `https://api.mymemory.translated.net/get?q=${text}&langpair=${translateFrom}|${translateTo}`;
+  fetch(apiURL).then(res=>res.json()).then(data=>{
+    console.log(data);
+    outputTextbox.value = data.responseData.translatedText;
+  })
+})
