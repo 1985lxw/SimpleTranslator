@@ -1,3 +1,5 @@
+
+
 const toggleSwitch = document.getElementById("switch");
 const title = document.getElementById("title");
 const inputTextbox = document.getElementById("input-textbox");
@@ -5,8 +7,6 @@ const outputTextbox = document.getElementById("output-textbox");
 const gameColor = document.querySelector(".game_id");
 const historyColor = document.querySelector(".history_id");
 const translate_btn = document.querySelector(".translate-button");
-const clear_btn = document.querySelector(".clear");
-const bx_transfer = document.querySelector(".bx-transfer");
 
 // Event listener for the toggle switch to change background color and title color
 toggleSwitch.addEventListener('click', () => {
@@ -14,10 +14,6 @@ toggleSwitch.addEventListener('click', () => {
   title.style.color = document.body.style.backgroundColor === 'black' ? 'pink' : 'black';
   gameColor.style.color = document.body.style.backgroundColor === 'black' ? 'pink' : 'black';
   historyColor.style.color = document.body.style.backgroundColor === 'black' ? 'pink' : 'black';
-  translate_btn.style.backgroundColor = document.body.style.backgroundColor === 'black' ? 'pink' : 'black';
-  translate_btn.style.color = document.body.style.backgroundColor === 'black' ? 'black' : 'pink';
-  clear_btn.style.backgroundColor = document.body.style.backgroundColor === 'black' ? 'pink' : 'black';
-  clear_btn.style.color = document.body.style.backgroundColor === 'black' ? 'black' : 'pink';
 });
 
 gameColor.addEventListener('mouseenter', () => {
@@ -40,6 +36,10 @@ historyColor.addEventListener('mouseleave', () => {
   historyColor.style.textDecoration = 'none';
 });
 
+// // Event listener for input textbox to update output textbox
+// inputTextbox.addEventListener("input", ()=>{
+//   outputTextbox.value = inputTextbox.value;
+// })
 
 // Function to handle search bar functionality
 function search_bar (){
@@ -47,15 +47,20 @@ function search_bar (){
   console.log(input);
 }
 
-// Switch between languages
-bx_transfer.addEventListener("click", ()=>{
-  const translateTo = document.querySelector(".translate-to").value;
-  const translateFrom = document.querySelector(".translate-from").value;
-  document.querySelector(".translate-from").value = translateTo;
-  document.querySelector(".translate-to").value = translateFrom;
-})
 
-// API for translation
+// Call the function to create history boxes when the page loads
+
+//commented out to avoid error
+// createHistoryBoxes();
+
+
+// Integrating back-end
+// async function storeTranslationHistory() {
+//   try {
+//     const res = await fetch(url, {)
+//   }
+// }
+
 translate_btn.addEventListener("click", ()=>{
   let text = inputTextbox.value;
   let translateFrom = document.querySelector(".translate-from").value;
@@ -64,13 +69,5 @@ translate_btn.addEventListener("click", ()=>{
   fetch(apiURL).then(res=>res.json()).then(data=>{
     console.log(data);
     outputTextbox.value = data.responseData.translatedText;
-    let history = JSON.parse(localStorage.getItem("history")) || [];
-    history.push({
-      text: text,
-      translateFrom: translateFrom,
-      translateTo: translateTo,
-      translatedText: data.responseData.translatedText
-    })
-    localStorage.setItem("history", JSON.stringify(history));
   })
 })

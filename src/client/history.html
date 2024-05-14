@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>History</title>
-<<<<<<< HEAD
     <link rel="stylesheet" href="history_styles.css">
 </head>
 <body>
@@ -24,32 +23,4 @@
     </div>
     <script src="history_script.js" type="module" defer></script>
 </body>
-=======
-    <link rel="stylesheet" href="history_styles.css" />
-    <script src="script.js" type="module" defer></script>
-  </head>
-  <body>
-    <ul id="history-list"></ul>
-    <button id="remove-hist">Remove History</button>
-    <script>
-      let history = JSON.parse(localStorage.getItem("history")) || [];
-      let historyList = document.getElementById("history-list");
-      function displayHistory() {
-        historyList.innerHTML = "";
-        history.forEach((entry) => {
-          let listItem = document.createElement("li");
-          listItem.innerHTML = `<strong>${entry.text}</strong> (${entry.translateFrom} to ${entry.translateTo}): ${entry.translatedText}`;
-          historyList.appendChild(listItem);
-        });
-      }
-      displayHistory();
-      let removeHistBtn = document.getElementById("remove-hist");
-      removeHistBtn.addEventListener("click", () => {
-        localStorage.removeItem("history");
-        history = [];
-        displayHistory();
-      });
-    </script>
-  </body>
->>>>>>> ece967d755b119bd8799da3c2c265fe3905ab191
 </html>
