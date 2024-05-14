@@ -7,7 +7,7 @@
  * @returns {Promise<Array<Object>>} A promise that resolves to an array of translation objects, 
  * each with an `input` (string) and an `output` (string) property.
  */
- async function fetchTranslations() {
+async function fetchTranslations() {
     try {
       const response = await fetch('/read?n=50');
       if (!response.ok) {
