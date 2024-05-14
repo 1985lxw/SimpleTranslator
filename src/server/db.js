@@ -39,7 +39,8 @@ async function nextID(words = false) {
     // Determines the next id number, deals with no translation issue
     let id = 0;
     if (lastTranslation.rows.length > 0) {
-        id = int(lastTranslation.rows[0].doc._id) + 1;
+        //stored as strings
+        id = parseInt(lastTranslation.rows[0].doc._id) + 1;
     }
 
     return id.toString()
