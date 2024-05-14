@@ -284,9 +284,9 @@ margin-top: 50px;
 }
 
 .language-switch-button:hover {
-  color: rgb(218, 25, 225);
+  color: rgb(218, 25, 225); /* Change color on hover if needed */
 }
 
 .language-switch-button:focus {
-  outline: none;
+  outline: none; /* Remove default focus outline */
 }
