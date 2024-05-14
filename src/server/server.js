@@ -3,6 +3,7 @@ import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
 import * as db from './db.js';
 import fetch from 'node-fetch';
+import fs from 'fs'; 
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const app = express();
@@ -13,6 +14,36 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(express.static(join(__dirname, '..', 'client')));
 
+
+/**
+ * Serves the language data from a JSON file.
+ * This endpoint reads a JSON file containing language codes and their corresponding names,
+ * and sends it back as a JSON response. It's used for dynamically loading language options
+ * on the client-side.
+ *
+ * @route GET /languages
+ * @returns {Object} 200 - A JSON object containing language codes and names.
+ * @returns {Error}  500 - Returns a server error if the file cannot be read.
+ */
+app.get('/languages', (req, res) => {
+  const filePath = join(__dirname, 'languages.json');
+
+    fs.readFile(filePath, 'utf8', (err, data) => {
+        if (err) {
+            console.error('Error reading language file:', err);
+            res.status(500).send('Failed to load language data');
+            return;
+        }
+        try {
+            const languages = JSON.parse(data);
+            res.json(languages);
+        } catch (parseError) {
+            console.error('Error parsing JSON data:', parseError);
+            console.error('Data received:', data);
+            res.status(500).send('Failed to parse language data');
+        }
+    });
+});
 
 /**
  * Handles POST requests to translate text from one language to another using an external translation service.
