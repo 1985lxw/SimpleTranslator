@@ -1,55 +1,15 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>History</title>
-<<<<<<< HEAD
-    <link rel="stylesheet" href="history_styles.css">
+    <link rel="stylesheet" href="history_styles.css" />
+    <script src="history_script.js" type="module" defer></script>
 </head>
 <body>
     <div class="history-box-container">
-        <div class="history-box">
-            <h2>History 1</h2>
-            <p>This is the content of History 1.</p>
-        </div>
-        <div class="history-box">
-            <h2>History 2</h2>
-            <p>This is the content of History 2.</p>
-        </div>
-        <div class="history-box">
-            <h2>History 3</h2>
-            <p>This is the content of History 3.</p>
-        </div>
+        <!-- History entries will be dynamically inserted here by the JavaScript -->
     </div>
-    <script src="history_script.js" type="module" defer></script>
 </body>
-=======
-    <link rel="stylesheet" href="history_styles.css" />
-    <script src="script.js" type="module" defer></script>
-  </head>
-  <body>
-    <ul id="history-list"></ul>
-    <button id="remove-hist">Remove History</button>
-    <script>
-      let history = JSON.parse(localStorage.getItem("history")) || [];
-      let historyList = document.getElementById("history-list");
-      function displayHistory() {
-        historyList.innerHTML = "";
-        history.forEach((entry) => {
-          let listItem = document.createElement("li");
-          listItem.innerHTML = `<strong>${entry.text}</strong> (${entry.translateFrom} to ${entry.translateTo}): ${entry.translatedText}`;
-          historyList.appendChild(listItem);
-        });
-      }
-      displayHistory();
-      let removeHistBtn = document.getElementById("remove-hist");
-      removeHistBtn.addEventListener("click", () => {
-        localStorage.removeItem("history");
-        history = [];
-        displayHistory();
-      });
-    </script>
-  </body>
->>>>>>> ece967d755b119bd8799da3c2c265fe3905ab191
 </html>
