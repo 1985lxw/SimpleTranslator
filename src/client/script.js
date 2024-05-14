@@ -15,10 +15,7 @@ toggleSwitch.addEventListener('click', () => {
   title.style.color = document.body.style.backgroundColor === 'black' ? 'pink' : 'black';
   gameColor.style.color = document.body.style.backgroundColor === 'black' ? 'pink' : 'black';
   historyColor.style.color = document.body.style.backgroundColor === 'black' ? 'pink' : 'black';
-  translate_btn.style.backgroundColor = document.body.style.backgroundColor === 'black' ? 'pink' : 'black';
-  translate_btn.style.color = document.body.style.backgroundColor === 'black' ? 'black' : 'pink';
-  clear_btn.style.backgroundColor = document.body.style.backgroundColor === 'black' ? 'pink' : 'black';
-  clear_btn.style.color = document.body.style.backgroundColor === 'black' ? 'black' : 'pink';
+  
 });
 
 gameColor.addEventListener('mouseenter', () => {
