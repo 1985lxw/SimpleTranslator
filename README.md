@@ -1,2 +1,2 @@
 # SimpleTranslator
-The skeleton framework of the frontend. Shows what the translation page should be.
+SimpleTranslator's front page allows the user to select a language that they want to translate into and the language they want to translate from, enter in a word or a sentence, and translate it by pressing the translate button. This will save the translation data in the user history. The user history can be found in th top right corner, along with the matching game which needs a certain amount of history to be played. There is the ability to search words from history and clear history. 

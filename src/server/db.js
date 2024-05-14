@@ -43,39 +43,34 @@ async function nextID(words = false) {
         id = parseInt(lastTranslation.rows[0].doc._id) + 1;
     }
 
-    return id.toString()
+    return id.toString();
 }
 
 /**
- * History Create: updates history with the current translation.
+ * Stores a translation only if it does not exist with the same input, lang_in, and lang_out.
  * 
- * @async
- * @param {string} input - The text input of what we wanted translated
- * @param {string} out - The result of the translation
- * @param {string} lang_in - the starting language
- * @param {string} lang_out - the result language 
- * @throws Error - if there's a problem accessing the database
+ * @param {string} input - The text input of what we wanted translated.
+ * @param {string} output - The result of the translation.
+ * @param {string} lang_in - The starting language code.
+ * @param {string} lang_out - The result language code.
+ * @throws Error - if there's a problem accessing the database.
  */
-
-export async function saveTranslation(input, out, lang_in, lang_out) {
+export async function saveTranslation(input, output, lang_in, lang_out) {
     try {
-        //if translation already exists, we delete it
-        const id_curr = await findTranslation(input, lang_in);
-        if (id_curr !== -1) {
-            await deleteTranslation(id_curr);
+        const existingId = await findTranslation(input, lang_in, lang_out);
+        if (existingId) {
+            // Translation already exists, optionally update or skip saving.
+            console.log(`Translation for '${input}' from '${lang_in}' to '${lang_out}' already exists.`);
+            return;
         }
         
-        //gets next available id
-        const id = await nextID()
-        
-        //stores
-        await db.put({ _id: id, input, out, lang_in, lang_out });
-    }
-    catch (error){
-        throw new Error(`Error storing history of input ${input}: ${error}`)
+        const id = await nextID(); // gets the next available id
+        await db.put({ _id: id, input, output, lang_in, lang_out }); // stores the new translation
+        console.log('Translation saved successfully:', { id, input, output, lang_in, lang_out });
+    } catch (error) {
+        throw new Error(`Error storing history of input ${input}: ${error}`);
     }
 }
-
 
 /**
  * Clear Translation: removes a translation. This is typically done when the user enters a duplicate translation.
@@ -115,36 +110,27 @@ export async function clearTranslationHistory() {
 }
 
 /**
- * Searches history for current translation. The goal is to find a duplicate translation to 
- * update the id number in a different function
+ * Searches history for a specific translation to prevent duplicates.
  * 
- * @param {string} input - the translation input
- * @param {string} lang_in - the input language
- * 
- * @returns {number} id - the id of the translation, -1 if not found
+ * @param {string} input - The input text of the translation.
+ * @param {string} lang_in - The language code of the input text.
+ * @param {string} lang_out - The language code of the output text.
+ * @returns {string|null} - The id of the found translation document or null if not found.
  */
-async function findTranslation(input, lang_in) {
+async function findTranslation(input, lang_in, lang_out) {
     try {
-        const query = {
-            "input": input,
-            "lang_in": lang_in
-        };
-
-        const result = await db.find({ selector: query });
-
-        if (result.docs.length > 0) {
-            //if found
-            return result.docs[0]._id;
-        } 
-        else {
-            // if not found
-            return -1;
-        }
-
+        const result = await db.find({
+            selector: {
+                input: { $eq: input },
+                lang_in: { $eq: lang_in },
+                lang_out: { $eq: lang_out }
+            },
+            limit: 1
+        });
+        return result.docs.length > 0 ? result.docs[0]._id : null;
     } catch (error) {
         console.error("Error searching translation history:", error);
-        // if error
-        return -1;
+        return null;
     }
 }
 
@@ -197,8 +183,8 @@ export async function updateWords(input, lang_in) {
                 return word.replace(punctuation, "");
             });
             
-            const out_words = result.docs[0].out.split(" ");
-            out_words = out_words.map((word) => {
+            const output_words = result.docs[0].output.split(" ");
+            output_words = output_words.map((word) => {
                 return word.replace(punctuation, "");
             });
             //error here, what if the words are not the same length?
@@ -232,5 +218,42 @@ export async function clearWords() {
         await db.bulkDocs(forRemoval);
     } catch (error) {
         throw new Error(`Error deleting words database: ${error}`);
+    }
+}
+
+/**
+ * Search translations that match the given text partially or exactly.
+ * @param {string} searchText - The text to search for in input translations.
+ * @returns {Promise<Array<string>>} - A promise that resolves to an array of matching input texts.
+ */
+export async function searchTranslations(searchText) {
+    try {
+        const regex = new RegExp(searchText, 'i');  // Case-insensitive regex
+        const result = await db.find({
+            selector: { input: { $regex: regex } }
+        });
+        return result.docs;  // Return full docs
+    } catch (error) {
+        console.error("Error searching translations:", error);
+        throw new Error('Failed to search translations');
+    }
+}
+
+
+/**
+ * Get a full translation for an exact match to the input text.
+ * @param {string} inputText - The exact text of the translation input to find.
+ * @returns {Promise<Object|null>} - A promise that resolves to the translation object or null if not found.
+ */
+export async function getTranslation(inputText) {
+    try {
+        const result = await db.find({
+            selector: { input: { $eq: inputText } },
+            limit: 1
+        });
+        return result.docs.length > 0 ? result.docs[0] : null;
+    } catch (error) {
+        console.error("Error retrieving translation:", error);
+        throw new Error('Failed to retrieve translation');
     }
 }
